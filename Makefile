@@ -1,14 +1,17 @@
 CC=gcc
-CFLAGS=-g -Wall -c
-LDFLAGS=-g -Wall -o
+CFLAGS=-g -lm -Wall -c
+LDFLAGS=-g -lm -Wall -o
 
-all: client
+all: whitelist_mgr
 
-client: client.o
-	$(CC) client.o $(LDFLAGS) client
+whitelist_mgr: src/whitelist_mgr.o libs/cJSON.o
+	$(CC) src/whitelist_mgr.o libs/cJSON.o $(LDFLAGS) whitelist_mgr
 
-client.o: client.c
-	$(CC) client.c $(CFLAGS)
+cJSON.o: libs/cJSON.c libs/cJSON.h
+	$(CC) libs/cJSON.c $(CFLAGS)
+
+whitelist_mgr.o: src/whitelist_mgr.c libs/cJSON.h
+	$(CC) src/whitelist_mgr.c $(CFLAGS)
 
 clean:
-	rm -f *.o client
+	rm -f *.o
