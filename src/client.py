@@ -1,6 +1,7 @@
 from __future__ import print_function
 from cmd import Cmd
 import sys
+import re
 
 class Client(Cmd):
 
@@ -10,6 +11,7 @@ class Client(Cmd):
 
 		self.whitelist_location = whitelist_location
 		self.whitelist= []
+		self.r = re.compile('.*..*..*:.*')
 
 		# load ip's into cache
 		with open(self.whitelist_location, 'r') as whitelist:
@@ -35,6 +37,8 @@ class Client(Cmd):
 		"""Add given ip to list of trusted servers"""
 		if len(args) == 0:
 			print('Error: No ip argument passed')
+		elif self.r.match(args)	is None:
+			print('Error: Ip argument not proper format')
 		elif args in self.whitelist:
 			print('Error: ip already exists in whitelist')
 		else:
@@ -50,6 +54,8 @@ class Client(Cmd):
 		"""Delete given ip from list of trusted servers"""
 		if len(args) == 0:
 			print('Error: No ip argument passed')
+		elif self.r.match(args)	is None:
+			print('Error: Ip argument not proper format')	
 		elif not args in self.whitelist:
 			print('Error: ip not in whitelist')
 		else:
