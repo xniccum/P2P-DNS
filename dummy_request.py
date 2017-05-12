@@ -12,7 +12,7 @@ def listen(port):
 		with conn:
 			response = servers.bytes_to_json(conn.recv(1024))
 			return response
-	return {}
+	return {}with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
 
 ip = 'localhost'
