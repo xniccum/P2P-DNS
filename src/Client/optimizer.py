@@ -1,7 +1,7 @@
 metadata = 'whitelist_metadata.csv'
 whitelist = 'whitelist.txt'
 
-wait_time = 6
+wait_time = 600
 
 import numpy as np
 import pandas as pd
