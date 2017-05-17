@@ -4,13 +4,9 @@ import sys
 import re
 import json
 import socket
+import util
 
 # www.google.com
-
-def json_to_bytes(js):
-    return json.dumps(js).encode('utf-8')
-def bytes_to_json(bts):
-    return json.loads(bts.decode('utf-8'))
 
 class Client(Cmd):
 
@@ -29,16 +25,16 @@ class Client(Cmd):
 			for ip in whitelist: 
 				self.whitelist.append(ip.rstrip('\n'))
 
-	def listen(port):
+	def listen(self,port):
 		HOST = 'localhost' 
 		PORT = port              # Arbitrary non-privileged port
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-			s.setdefaulttimeout(self.timeout)
+			#s.setdefaulttimeout(self.timeout)
 			s.bind((HOST, PORT))
 			s.listen(1)
 			conn, addr = s.accept()
 			with conn:
-				response = bytes_to_json(conn.recv(1024))
+				response = util.bytes_to_json(conn.recv(1024))
 				return response
 		return {}			
 

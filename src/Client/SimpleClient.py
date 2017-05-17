@@ -1,6 +1,7 @@
 import time
 import socket
 from client import Client
+import util
 
 class SimpleClient(Client):
 	def __init__(self, ip):
@@ -12,10 +13,10 @@ class SimpleClient(Client):
 			request = {"client_ip": self.ip, "hostname":hostname,"timestamp": str(time.time())}
 			ip, port = whitelist_ip_port.split(':')
 			with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-				port = int(port)
-				s.connect((ip, port))
+				print(ip)
+				s.connect((ip, 8888))
 				try:
-					s.sendall(json_to_bytes(request))
+					s.sendall(util.json_to_bytes(request))
 					response = self.listen(3333)
 					return response
 				except socket.error as msg:
