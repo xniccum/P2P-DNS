@@ -1,7 +1,7 @@
 metadata = 'whitelist_metadata.csv'
 whitelist = 'whitelist.txt'
 
-wait_time = 600
+wait_time = 6
 
 import numpy as np
 import pandas as pd
@@ -21,5 +21,6 @@ def deamon():
 
 
 if __name__ == "__main__":
+    print("running optimizer...")
     deamon()
 

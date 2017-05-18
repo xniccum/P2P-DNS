@@ -30,12 +30,16 @@ class Client(Cmd):
 		PORT = port              # Arbitrary non-privileged port
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 			#s.setdefaulttimeout(self.timeout)
+			s.settimeout(self.timeout)
 			s.bind((HOST, PORT))
-			s.listen(1)
-			conn, addr = s.accept()
-			with conn:
-				response = util.bytes_to_json(conn.recv(1024))
-				return response
+			try:
+				s.listen(1)
+				conn, addr = s.accept()
+				with conn:
+					response = util.bytes_to_json(conn.recv(1024))
+					return response
+			except Exception as e:
+				print("request timed out")
 		return {}			
 
 	def run(self):

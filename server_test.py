@@ -32,5 +32,6 @@ class LazyDNSServer(servers.DNSServerHandler):
 if __name__ == "__main__":
     ip = 'localhost'
     port = 8888
+    print("serving on port ", port)
     server = servers.DNSServer(ip,port,LazyDNSServer)
     server.run()
